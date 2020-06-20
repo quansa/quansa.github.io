@@ -94,7 +94,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="vue," />
 
 
 
@@ -107,18 +107,19 @@
 
 
 
-<meta name="description" content="关于vue的内部原理其实有很多个重要的部分，变化侦测，模板编译，virtualDOM，整体运行流程等。 MVCM（model数据模型），V（view视图），C（Controller控制器，ViewController）映射到前端就是 123456789101112131415161718192021&lt;html&gt;	&lt;head&gt;&lt;&#x2F;head&gt;	&lt;body&amp;gt">
+<meta name="description" content="关于vue的内部原理其实有很多个重要的部分，变化侦测，模板编译，virtualDOM，整体运行流程等。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue">
 <meta property="og:url" content="http://yoursite.com/2020/06/02/vue/index.html">
 <meta property="og:site_name" content="小飒的博客">
-<meta property="og:description" content="关于vue的内部原理其实有很多个重要的部分，变化侦测，模板编译，virtualDOM，整体运行流程等。 MVCM（model数据模型），V（view视图），C（Controller控制器，ViewController）映射到前端就是 123456789101112131415161718192021&lt;html&gt;	&lt;head&gt;&lt;&#x2F;head&gt;	&lt;body&amp;gt">
+<meta property="og:description" content="关于vue的内部原理其实有很多个重要的部分，变化侦测，模板编译，virtualDOM，整体运行流程等。">
 <meta property="og:image" content="http://yoursite.com/2020/06/02/vue/images/MVVM%E5%9B%BE%E7%A4%BA.png">
 <meta property="og:image" content="http://yoursite.com/2020/06/02/vue/images/%E5%93%8D%E5%BA%94%E6%95%B0%E6%8D%AE%E5%9B%BE%E8%A7%A3.png">
 <meta property="og:image" content="http://yoursite.com/2020/06/02/vue/images/%E5%9B%BE%E8%A7%A3MVVM.PNG">
 <meta property="article:published_time" content="2020-06-02T07:36:01.000Z">
-<meta property="article:modified_time" content="2020-06-20T01:18:53.968Z">
+<meta property="article:modified_time" content="2020-06-20T01:43:53.352Z">
 <meta property="article:author" content="小飒">
+<meta property="article:tag" content="vue">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/2020/06/02/vue/images/MVVM%E5%9B%BE%E7%A4%BA.png">
 
@@ -379,7 +380,18 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
+                  <a href="/categories/web%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">web前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web%E5%89%8D%E7%AB%AF/vue/" itemprop="url" rel="index">
                     <span itemprop="name">vue</span>
                   </a>
                 </span>
@@ -417,6 +429,8 @@
 
       
         <p><strong>关于vue的内部原理其实有很多个重要的部分，变化侦测，模板编译，virtualDOM，整体运行流程等</strong>。</p>
+<a id="more"></a>
+
 <h1 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h1><p>M（model数据模型），V（view视图），C（Controller控制器，ViewController）映射到前端就是</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!--view--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">'test'</span>&gt;</span></span><br><span class="line">			view</span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">		<span class="comment">// model</span></span></span><br><span class="line"><span class="actionscript">		<span class="function"><span class="keyword">function</span> <span class="title">ajaxData</span><span class="params">()</span></span>&#123;</span></span><br><span class="line"><span class="actionscript">			<span class="comment">// 获取后台数据data</span></span></span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line"><span class="actionscript">		<span class="comment">// 处理各种逻辑和数据转化</span></span></span><br><span class="line"><span class="actionscript">		<span class="comment">// Controller</span></span></span><br><span class="line"><span class="javascript">		<span class="keyword">let</span> test = <span class="built_in">document</span>.getElementById(<span class="string">'test'</span>)</span></span><br><span class="line">		test.innerHTML  = data.test</span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>MVC理想状态下：后台传回的数据改变，页面上的展示也改变</p>
@@ -565,7 +579,7 @@ $listeners：一个对象，里面包含所有作用在组件上的监听器，v
 
 <h1 id="vnode-virtual-DOM"><a href="#vnode-virtual-DOM" class="headerlink" title="vnode(virtual DOM)"></a>vnode(virtual DOM)</h1><p>js对象：兼容性强，（服务端渲染，原生渲染，手写渲染韩式）；减少操作DOM，页面变化只需修改VNode进行对比，只需要最后一步挂载更新DOM<br>通过render将template模板描述成VNode,然后进行一系列操作之后形成正式DOM进行挂载<br> DOM节点包含：<br>    自身的标签名（div）<br>    自身的属性（id=’app’）<br>    子节点(span)</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;a <span class="class"><span class="keyword">class</span></span>=<span class="string">"demo"</span> style=<span class="string">"color: red"</span> href=<span class="string">"#"</span>&gt;</span><br><span class="line"> VNode</span><br><span class="line">&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">&#123;</span></span><br><span class="line"><span class="regexp">  tag: 'a',</span></span><br><span class="line"><span class="regexp">  data: &#123;</span></span><br><span class="line"><span class="regexp">    calss: 'demo',</span></span><br><span class="line"><span class="regexp">    attrs: &#123;</span></span><br><span class="line"><span class="regexp">      href: '#'</span></span><br><span class="line"><span class="regexp">    &#125;,</span></span><br><span class="line"><span class="regexp">    style: &#123;</span></span><br><span class="line"><span class="regexp">      color: 'red'</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;,</span></span><br><span class="line"><span class="regexp">  children: ['VNode']</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">data：存储节点的属性，绑定的事件等</span></span><br><span class="line"><span class="regexp">elm：真实DOM 节点</span></span><br><span class="line"><span class="regexp">context：渲染这个模板的上下文对象</span></span><br><span class="line"><span class="regexp">isStatic：是否是静态节点</span></span><br></pre></td></tr></table></figure>
-<h1 id="diff算法"><a href="#diff算法" class="headerlink" title="diff算法"></a>diff算法</h1><p>同级比较：广度优先算法:O(n)<br>本质：找出两个对象（虚拟DOM,vnode）之间的差异，目的是尽可能复用节点<br>vue：先diff得到oldvnode与vnode差异，在patch(补丁)真实DOM<br>   diff算法可以分为两部分：<br>       1. 改变自身属性<br>                遍历 oldVnode 看 newTreeAttr 是否还有对应的属性<br>                如果有并且不相等的，修改对应的属性， 没有的话，直接删除对应的属性<br>                遍历oldVnode, 是否还有对应的属性，没有就新增<br>          2. 改变子节点<br>                 子节点是数组：找出两个数组的差异<br>        旧首（StartIdx），旧尾（EndIdx）<br>        新首，新尾<br>        四种比较方式：<br>            sameVnode(oldStartVnode, newStartVnode)<br>            sameVnode(oldEndVnode,newEndVnode)<br>            sameVnode(oldStartVnode，newEndVnode):oldStartVnode.el跑到oldEndVnode.el的后边了<br>            sameVnode(oldEndVnode，newStartVnode):oldEndVnode.el需要移动到oldStartVnode.el的前边”<br>             oldCh 先遍历完成,则证明 newCh 还有多余节点，需要新增这些节点<br>             newCh 先遍历完成,则证明 oldCh 还有多余节点，需要删除这些节点</p>
+<h1 id="diff算法"><a href="#diff算法" class="headerlink" title="diff算法"></a>diff算法</h1><p>同级比较：广度优先算法:O(n)<br>本质：找出两个对象（虚拟DOM,vnode）之间的差异，目的是尽可能复用节点<br>vue：先diff得到oldvnode与vnode差异，在patch(补丁)真实DOM<br>   diff算法可以分为两部分：<br>       1. 改变自身属性<br>                遍历 oldVnode 看 newTreeAttr 是否还有对应的属性<br>                如果有并且不相等的，修改对应的属性， 没有的话，直接删除对应的属性<br>                遍历oldVnode, 是否还有对应的属性，没有就新增<br>                2. 改变子节点<br>                 子节点是数组：找出两个数组的差异<br>        旧首（StartIdx），旧尾（EndIdx）<br>        新首，新尾<br>        四种比较方式：<br>            sameVnode(oldStartVnode, newStartVnode)<br>            sameVnode(oldEndVnode,newEndVnode)<br>            sameVnode(oldStartVnode，newEndVnode):oldStartVnode.el跑到oldEndVnode.el的后边了<br>            sameVnode(oldEndVnode，newStartVnode):oldEndVnode.el需要移动到oldStartVnode.el的前边”<br>             oldCh 先遍历完成,则证明 newCh 还有多余节点，需要新增这些节点<br>             newCh 先遍历完成,则证明 oldCh 还有多余节点，需要删除这些节点</p>
 <pre><code>    不设key，newCh和oldCh只会进行头尾两端的相互比较，
     设key后，除了头尾两端的比较外，还会从用key生成的对象oldKeyToIdx中查找匹配的节点，所以为节点设置key可以更高效的利用dom。
 
@@ -722,6 +736,12 @@ key 的作用： 主要是决定节点是否可以复用建立key-index的索引
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+        </div>
+      
 
       
       
@@ -835,7 +855,7 @@ key 的作用： 主要是决定节点是否可以复用建立key-index的索引
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
