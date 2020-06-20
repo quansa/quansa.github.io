@@ -114,7 +114,7 @@
 <meta property="og:site_name" content="小飒的博客">
 <meta property="og:description" content="（超文本标记语言）">
 <meta property="og:image" content="http://yoursite.com/2020/05/11/html%E6%A0%87%E7%AD%BE/2.gif">
-<meta property="og:image" content="http://yoursite.com/2020/05/img/2.gif">
+<meta property="og:image" content="http://yoursite.com/2020/05/11/img/2.gif">
 <meta property="article:published_time" content="2020-05-11T02:22:21.000Z">
 <meta property="article:modified_time" content="2020-05-11T02:26:18.758Z">
 <meta property="article:author" content="小飒">
@@ -509,8 +509,8 @@
 
 <blockquote>
 <p>使用img标签来向网页中引入一个外部图片（img标签也是一个自结束标签）<br>​    属性：<br>​        src：设置一个外部图片的路径（相对路径/绝对路径）</p>
-<p>​            相对路径指相对于当前资源所在目录的位置<img src="./2.gif" alt="大松鼠"/></p>
-<p>​            可以使用  <strong>../</strong>  来返回一级目录,返回几级目录就写几个../<br>​                <img src="../../img/2.gif" alt="这是一个大松鼠"/>    </p>
+<p>​            相对路径指相对于当前资源所在目录的位置<img src="/2020/05/11/html%E6%A0%87%E7%AD%BE/2.gif" alt="大松鼠"></p>
+<p>​            可以使用  <strong>../</strong>  来返回一级目录,返回几级目录就写几个../<br>​                <img src="/2020/05/11/html%E6%A0%87%E7%AD%BE/../img/2.gif" alt="这是一个大松鼠">    </p>
 <p>​        alt：可以用来设置在图片不能显示时，对图片的描述<br>​            搜索引擎可以通过alt属性来识别不同的图片<br>​            如果不写alt属性，则搜索引擎不会对img中的图片进行收录<br>​        width：修改图片的宽度,一般使用px作为单位<br>​        height：修改图片的高度，一般使用px作为单位</p>
 <p>​                <em>宽度和*高度两个属性如果指设置一个，另一个也会同时等比例调整大小</em><br>​                <em>如果两个值同时指定则按照你指定的值来设置</em><br>​                <strong>一般开发中除了自适应的页面，不建议设置width和height*</strong>            </p>
 <p>​    图片的格式</p>
