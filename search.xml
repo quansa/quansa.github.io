@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>前端动画总结</title>
+    <url>/2020/06/17/css%E5%8A%A8%E7%94%BB/</url>
+    <content><![CDATA[<p>1.交互动画<br>2.展示性动画<br>3.框架（animate.css，Anime.js，Lottie）</p>
+<a id="more"></a>
+
+<h1 id="css"><a href="#css" class="headerlink" title="css"></a>css</h1><pre><code>animation (动画)
+transition （过度）
+transform  （变形）
+translate  （移动，translate只是transform的一个属性值）</code></pre><h2 id="animation-（css3）"><a href="#animation-（css3）" class="headerlink" title="animation （css3）"></a>animation （css3）</h2><pre><code>关键帧动画
+animation:name duration timing-function delay iteration-count direction
+                           运行时间    速度曲线    延迟    运行次数    是否反向
+@keyframs name{
+
+ }                           </code></pre><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*以ease 5s运行完动画，无限次来回运行 */</span></span><br><span class="line"> <span class="selector-tag">position</span>: <span class="selector-tag">relative</span>; <span class="comment">/*开启定位，改变left,top.....*/</span></span><br><span class="line"> <span class="selector-tag">animation</span><span class="selector-pseudo">:mymove</span> 5<span class="selector-tag">s</span> <span class="selector-tag">infinite</span> <span class="selector-tag">alternate</span>;</span><br><span class="line"> <span class="keyword">@keyframs</span> mymove&#123;</span><br><span class="line"> </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>animate.css使用</p>
+<h2 id="transition"><a href="#transition" class="headerlink" title="transition"></a>transition</h2><pre><code> 过度动画：前进阶段和反向阶段
+transition: property duration timing-function delay
+                      css属性</code></pre><p>过渡transition的触发有三种方式，分别是伪类触发（:hover、:focus、:active）、媒体查询触发（@media）和javascript触发（点击事件）</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">transition: width <span class="number">2</span>s;</span><br><span class="line">-moz-transition: width <span class="number">2</span>s; <span class="comment">/* Firefox 4 */</span></span><br><span class="line">-webkit-transition: width <span class="number">2</span>s; <span class="comment">/* Safari 和 Chrome */</span></span><br><span class="line">-o-transition: width <span class="number">2</span>s; <span class="comment">/* Opera */</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="js"><a href="#js" class="headerlink" title="js"></a>js</h1><h2 id="setInterval-或setTimeout"><a href="#setInterval-或setTimeout" class="headerlink" title="setInterval()或setTimeout()"></a>setInterval()或setTimeout()</h2><p>持续调用改变某个元素的CSS样式<br>通常会导致页面频繁重排重绘，很消耗性能</p>
+<h1 id="html5"><a href="#html5" class="headerlink" title="html5"></a>html5</h1><h2 id="SVG动画"><a href="#SVG动画" class="headerlink" title="SVG动画"></a>SVG动画</h2><pre><code>可缩放矢量图形
+动画元素
+ &lt;animate&gt;，&lt;animateColor&gt;，&lt;animateMotion&gt;，&lt;animateTransform&gt;，&lt;discard&gt;，&lt;mpath&gt;，&lt;set&gt;
+路径动画：动画对象定义一条动画路径，配合 keyframe 等操作，轻松实现让一个物体沿着一条路径进行动画
+
+1.结合animation
+2.SVG 的动画元素
+    animate 
+                attributeName 需要动画的属性名称
+                from 属性的初始值
+                to 终止值
+
+                  dur  动画的时间
+    animateTransform
+    animateMotion（线性路径动画）</code></pre><h2 id="Canvas动画"><a href="#Canvas动画" class="headerlink" title="Canvas动画"></a>Canvas动画</h2><pre><code>requestAnimationFrame
+请求动画帧
+setTimeout()</code></pre>]]></content>
+      <tags>
+        <tag>web前端</tag>
+        <tag>动画</tag>
+        <tag>css</tag>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>css</title>
     <url>/2020/05/11/css/</url>
     <content><![CDATA[<p> css常见基本效果</p>
@@ -70,53 +117,6 @@
       </categories>
       <tags>
         <tag>css</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>前端动画总结</title>
-    <url>/2020/06/17/css%E5%8A%A8%E7%94%BB/</url>
-    <content><![CDATA[<p>1.交互动画<br>2.展示性动画<br>3.框架（animate.css，Anime.js，Lottie）</p>
-<a id="more"></a>
-
-<h1 id="css"><a href="#css" class="headerlink" title="css"></a>css</h1><pre><code>animation (动画)
-transition （过度）
-transform  （变形）
-translate  （移动，translate只是transform的一个属性值）</code></pre><h2 id="animation-（css3）"><a href="#animation-（css3）" class="headerlink" title="animation （css3）"></a>animation （css3）</h2><pre><code>关键帧动画
-animation:name duration timing-function delay iteration-count direction
-                           运行时间    速度曲线    延迟    运行次数    是否反向
-@keyframs name{
-
- }                           </code></pre><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*以ease 5s运行完动画，无限次来回运行 */</span></span><br><span class="line"> <span class="selector-tag">position</span>: <span class="selector-tag">relative</span>; <span class="comment">/*开启定位，改变left,top.....*/</span></span><br><span class="line"> <span class="selector-tag">animation</span><span class="selector-pseudo">:mymove</span> 5<span class="selector-tag">s</span> <span class="selector-tag">infinite</span> <span class="selector-tag">alternate</span>;</span><br><span class="line"> <span class="keyword">@keyframs</span> mymove&#123;</span><br><span class="line"> </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<p>animate.css使用</p>
-<h2 id="transition"><a href="#transition" class="headerlink" title="transition"></a>transition</h2><pre><code> 过度动画：前进阶段和反向阶段
-transition: property duration timing-function delay
-                      css属性</code></pre><p>过渡transition的触发有三种方式，分别是伪类触发（:hover、:focus、:active）、媒体查询触发（@media）和javascript触发（点击事件）</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">transition: width <span class="number">2</span>s;</span><br><span class="line">-moz-transition: width <span class="number">2</span>s; <span class="comment">/* Firefox 4 */</span></span><br><span class="line">-webkit-transition: width <span class="number">2</span>s; <span class="comment">/* Safari 和 Chrome */</span></span><br><span class="line">-o-transition: width <span class="number">2</span>s; <span class="comment">/* Opera */</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="js"><a href="#js" class="headerlink" title="js"></a>js</h1><h2 id="setInterval-或setTimeout"><a href="#setInterval-或setTimeout" class="headerlink" title="setInterval()或setTimeout()"></a>setInterval()或setTimeout()</h2><p>持续调用改变某个元素的CSS样式<br>通常会导致页面频繁重排重绘，很消耗性能</p>
-<h1 id="html5"><a href="#html5" class="headerlink" title="html5"></a>html5</h1><h2 id="SVG动画"><a href="#SVG动画" class="headerlink" title="SVG动画"></a>SVG动画</h2><pre><code>可缩放矢量图形
-动画元素
- &lt;animate&gt;，&lt;animateColor&gt;，&lt;animateMotion&gt;，&lt;animateTransform&gt;，&lt;discard&gt;，&lt;mpath&gt;，&lt;set&gt;
-路径动画：动画对象定义一条动画路径，配合 keyframe 等操作，轻松实现让一个物体沿着一条路径进行动画
-
-1.结合animation
-2.SVG 的动画元素
-    animate 
-                attributeName 需要动画的属性名称
-                from 属性的初始值
-                to 终止值
-
-                  dur  动画的时间
-    animateTransform
-    animateMotion（线性路径动画）</code></pre><h2 id="Canvas动画"><a href="#Canvas动画" class="headerlink" title="Canvas动画"></a>Canvas动画</h2><pre><code>requestAnimationFrame
-请求动画帧
-setTimeout()</code></pre>]]></content>
-      <tags>
-        <tag>css</tag>
-        <tag>web前端</tag>
-        <tag>动画</tag>
-        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -827,7 +827,8 @@ setTimeout()</code></pre>]]></content>
   <entry>
     <title>js问题</title>
     <url>/2020/06/22/js%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<a id="more"></a>
+    <content><![CDATA[<p>问题</p>
+<a id="more"></a>
 <h1 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h1><h2 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h2><p> Trident内核：IE<br> Gecko内核：火狐<br> Presto内核：<br> Webket内核：chrome，Safari</p>
 <h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><h3 id="浏览器组成："><a href="#浏览器组成：" class="headerlink" title="浏览器组成："></a>浏览器组成：</h3><pre><code>1. 用户界面：地址栏，前进后退，书签等
 2. 浏览器引擎：用户界面与渲染引擎之间传送指令

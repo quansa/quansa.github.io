@@ -414,61 +414,14 @@
 
       
         
-          
-            <a id="more"></a>
-<h1 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h1><h2 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h2><p> Trident内核：IE<br> Gecko内核：火狐<br> Presto内核：<br> Webket内核：chrome，Safari</p>
-<h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><h3 id="浏览器组成："><a href="#浏览器组成：" class="headerlink" title="浏览器组成："></a>浏览器组成：</h3><pre><code>1. 用户界面：地址栏，前进后退，书签等
-2. 浏览器引擎：用户界面与渲染引擎之间传送指令
-3. 渲染引擎：负责显示请求的内容。负责解析HTML和CSS内容，并展示内容在屏幕上
-4. 网络：用于网络调用，比如HTTP请求，
-5. 用户界面后台
-6. JavaScript解释器：用于解释，执行js代码
-7. 数据存储：</code></pre><p> 内核主要两部分：渲染引擎（Rendering Engine）和 js引擎<br> 由于JS引擎越来越独立，浏览器内核 就倾向于 单指 渲染引擎。</p>
-<h3 id="渲染引擎"><a href="#渲染引擎" class="headerlink" title="渲染引擎"></a>渲染引擎</h3><p> 渲染流程：<br>      从网络获取请求文档的内容<br>     1. （Parser）解析HTML文档，将文档中的标签转为DOM节点树（内容树）<br>     2. （）同时他会解析CSS文件以及style标签中的样式数据生成( CSS Rule Tree)，和DOM树一起构建出渲染树（render树）<br>            渲染树是由一些带有视觉属性（color）的矩阵组成<br>    3.（Layout） 布局，也叫回流，每一个节点分配一个屏幕坐标<br>    4. （Paint）绘制，遍历render树，绘制每一个节点</p>
-<pre><code>渲染流程是逐步完成的，解析一部分，显示一部分内容，同时可能通过网络下载其余部分内容</code></pre><h3 id="渲染遇到JS文件"><a href="#渲染遇到JS文件" class="headerlink" title="渲染遇到JS文件"></a>渲染遇到JS文件</h3><ol>
-<li>js加载，解析和执行会阻塞DOM的构建，当遇到js文件DOM构建会暂停，等js引擎运行完毕后在恢复DOM构建，这也是为什么要把js放在body标签底部，也可以给script标签添加defer,async属性</li>
-<li>js改变css时，cssDOM也会阻塞DOM构建，不完整的CSSDOM是无法使用的，js访问CSSDOM并更改，那么执行js时，必须拿到完整的CSSDOM，所以<strong>当浏览器尚未完成CSSDOM，而我们却想运行脚本时</strong>，浏览器就会延迟脚本执行和DOM树构建，直到CSSDOM下载和构建完。所以浏览器会先下载和构建CSSOM，然后再执行JavaScript，最后在继续构建DOM。</li>
-</ol>
-<h3 id="重绘，回流"><a href="#重绘，回流" class="headerlink" title="重绘，回流"></a>重绘，回流</h3><p> 重绘：当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观、风格，而不会影响布局的，比如background-color。<br> 回流:当render tree中的一部分(或全部)因为元素的规模尺寸、布局、隐藏等改变而需要重新构建<br>         添加删除元素<br>        元素尺寸变化<br>        浏览器窗口变化，resize事件</p>
-<h3 id="async，defer"><a href="#async，defer" class="headerlink" title="async，defer"></a>async，defer</h3><h3 id="操作DOM慢"><a href="#操作DOM慢" class="headerlink" title="操作DOM慢"></a>操作DOM慢</h3><p>js操作DOM，其实涉及到两个线程之间的通信（渲染引擎，js引擎）,会带来新能上的损耗，并且操作DOM会导致重绘回流的情况</p>
-<h1 id="鼠标键盘事件"><a href="#鼠标键盘事件" class="headerlink" title="鼠标键盘事件"></a>鼠标键盘事件</h1><h2 id="鼠标点击"><a href="#鼠标点击" class="headerlink" title="鼠标点击"></a>鼠标点击</h2><p> onclick               单击鼠标<br> onDblClick         双击鼠标</p>
-<p> 多用于鼠标拖放，拉伸操作<br>         onMouseDown  按下鼠标<br>         onMouseUp       松开鼠标</p>
-<p> 鼠标点击事件处理函数要是返回false，则是阻止绑定对象的默认事件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 阻止a标签点击的默认事件，页面不会跳转</span></span><br><span class="line"><span class="keyword">let</span> a = <span class="built_in">document</span>.getElementById(<span class="string">'test'</span>)</span><br><span class="line">a.onclick (<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">let</span> event = e || event</span><br><span class="line">	<span class="keyword">return</span> flase</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="鼠标移动"><a href="#鼠标移动" class="headerlink" title="鼠标移动"></a>鼠标移动</h2><p> onmouseMove   移动鼠标<br>       事件类型：实时响应，鼠标移动就会触发</p>
-<h2 id="鼠标经过"><a href="#鼠标经过" class="headerlink" title="鼠标经过"></a>鼠标经过</h2><p>onmouseOver    移动到某个对象上<br> onmouseOut      鼠标离开某个对象<br>         当父子嵌套：从父移动到子，依次触发onmouseOver事件（移动到子，离开父，但父不出发onmouseOut），离开子，子触发onmouseOut事件，再离开父，父触发onmouseOut事件</p>
-<h2 id="鼠标事件来源（那个元素发生了鼠标事件）"><a href="#鼠标事件来源（那个元素发生了鼠标事件）" class="headerlink" title="鼠标事件来源（那个元素发生了鼠标事件）"></a>鼠标事件来源（那个元素发生了鼠标事件）</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> div = documnet.getElementById(<span class="string">'test'</span>)</span><br><span class="line">div.onmouseover = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> e = e || event</span><br><span class="line">	<span class="keyword">let</span> o = e.target || e.srcElement</span><br><span class="line">	<span class="built_in">console</span>.log(o.tagName)  <span class="comment">// DIV</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="键盘事件"><a href="#键盘事件" class="headerlink" title="键盘事件"></a>键盘事件</h2><p> onkeydown：按键按下<br> onkeypress：按键按下并释放，不可获取按键信息<br> onkeyup：释放按键<br> 键盘事件的响应顺序：keydown → keypress → keyup</p>
-<h2 id="键盘事件属性"><a href="#键盘事件属性" class="headerlink" title="键盘事件属性"></a>键盘事件属性</h2><p> keyCode<br> charCode<br> srcElement<br> shiftKey<br> ctrlKey<br> altKey<br> metaKey</p>
-<h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><p>手机号<br>/^1(3|4|5|7|8)\d{9}$/.test(phone)</p>
-<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><p>删除两边空格：本生没有trim函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 删除左右两端的空格</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">trim</span>(<span class="params">str</span>)</span>&#123;</span><br><span class="line"> <span class="keyword">return</span> str.replace(<span class="regexp">/(^\s*)|(\s*$)/g</span>, <span class="string">""</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 删除左边的空格 /(^\s*)/g</span></span><br><span class="line"><span class="comment">// 删除右边的空格 /(\s*$)/g</span></span><br></pre></td></tr></table></figure>
-<h1 id="线程，进程"><a href="#线程，进程" class="headerlink" title="线程，进程"></a>线程，进程</h1><p>一个程序至少有一个进程，一个进程至少有一个线程<br>线程的划分尺度小于进程，使得多线程程序并发性高<br>进程在执行过程中拥有独立的内存单元，而多线程共享内存，从而极大的起高了程序的运行效率</p>
-<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><ol>
-<li>每一个独立的线程有一个程序的入口，顺序执行序列和进程的出口，但是线程不能够独立执行，必须依存在应用程序中，有应用程序提供多个线程执行控制</li>
-<li>从逻辑角度看，多线程的意义在于一个应用程序中，有多个执行部分可以同时执行</li>
-<li>操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配</li>
-</ol>
-<h1 id="eval"><a href="#eval" class="headerlink" title="eval()"></a>eval()</h1><p>计算字符串，并且执行里面的js代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span>(<span class="string">"console.log(2+2)"</span>)  <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><h2 id="8种"><a href="#8种" class="headerlink" title="8种"></a>8种</h2><p>undefined<br>null<br>number<br>string<br>boolean<br>object<br>Symbol（ES6）<br>bigInt（谷歌67）安全存储操作大数</p>
-<h2 id="Object含有那些类型"><a href="#Object含有那些类型" class="headerlink" title="Object含有那些类型"></a>Object含有那些类型</h2><p>常用的：<br>    Date<br>    Function<br>    Array</p>
-<h2 id="基本类型，引用类型"><a href="#基本类型，引用类型" class="headerlink" title="基本类型，引用类型"></a>基本类型，引用类型</h2><p>基本类型：String、Number、boolean、null、undefined<br> 引用类型：object。里面包含的 function、Array、Date</p>
-<h2 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h2><ol>
-<li>{}，[]，null  输出 object</li>
-<li>NaN是Numberd的一种，非Number，用isNaN(123) 检测是否数字，<strong>NaN !== NaN</strong></li>
-</ol>
-<h2 id="instanceof，constructor，isArray-检测数组"><a href="#instanceof，constructor，isArray-检测数组" class="headerlink" title="instanceof，constructor，isArray() (检测数组)"></a>instanceof，constructor，isArray() (检测数组)</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="built_in">console</span>.log(arr <span class="keyword">instanceof</span> <span class="built_in">Array</span>)</span><br><span class="line"><span class="built_in">console</span>.log(arr.constructor === <span class="built_in">Array</span>)</span><br><span class="line">cosole.log(<span class="built_in">Array</span>.isArray(arr))</span><br></pre></td></tr></table></figure>
-
-<h2 id="Symbol-类型"><a href="#Symbol-类型" class="headerlink" title="Symbol 类型"></a>Symbol 类型</h2><p>Symbol类型永远不相等，即便创建时传入相同的值</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">Symbol</span>(<span class="string">'key'</span>) === <span class="built_in">Symbol</span>(<span class="string">'key'</span>)   <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-
-
-          
+          <p>问题</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/06/22/js%E9%97%AE%E9%A2%98/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
