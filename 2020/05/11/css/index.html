@@ -114,7 +114,7 @@
 <meta property="og:site_name" content="小飒的博客">
 <meta property="og:description" content="css常见基本效果">
 <meta property="article:published_time" content="2020-05-11T02:29:42.000Z">
-<meta property="article:modified_time" content="2020-05-11T02:31:16.718Z">
+<meta property="article:modified_time" content="2020-06-27T01:36:32.048Z">
 <meta property="article:author" content="小飒">
 <meta property="article:tag" content="css">
 <meta name="twitter:card" content="summary">
@@ -427,7 +427,6 @@
         <p> css常见基本效果</p>
 <a id="more"></a>
 
-
 <h2 id="1-文字"><a href="#1-文字" class="headerlink" title="1.文字"></a>1.文字</h2><h3 id="透明-rgba"><a href="#透明-rgba" class="headerlink" title="透明    rgba()"></a>透明    rgba()</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span></span><br><span class="line">        *&#123;</span><br><span class="line">            margin: 0;</span><br><span class="line">            padding: 0;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="css">        <span class="selector-id">#wrap</span>&#123;</span></span><br><span class="line">            width: 300px;</span><br><span class="line">            height: 300px;</span><br><span class="line">            margin: 100px auto;</span><br><span class="line"><span class="css">            <span class="comment">/*背景不透明*/</span></span></span><br><span class="line"><span class="css">           <span class="comment">/* background: rgb(0,0,0);*/</span></span></span><br><span class="line">            background: rgba(0,0,0,1);</span><br><span class="line"><span class="css">            <span class="comment">/*文字透明*/</span></span></span><br><span class="line"><span class="css">            <span class="selector-tag">color</span>: <span class="selector-tag">rgba</span>(255, 255, 255,<span class="selector-class">.5</span>);</span></span><br><span class="line">            font-size: 30px;</span><br><span class="line">            line-height: 300px;</span><br><span class="line">            text-align: center;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"wrap"</span>&gt;</span></span><br><span class="line">    我是wrap</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 
@@ -475,15 +474,15 @@
 
 
 
-<h2 id="4-过度"><a href="#4-过度" class="headerlink" title="4.过度"></a>4.过度</h2><p>​    transition-property：过度的名称（width，height，font….）</p>
-<p>​    transition-duration：过度时间（必须带单位&lt;s,ms&gt;）</p>
-<p>​    transition-timing-function：过度的方式（默认ease&lt;慢-快-慢&gt;；ease-in,ease-out,ease-in-out,cubic-bezier(n,n,n,n)）</p>
-<p>​    transition-delay：延迟</p>
-<p>​    transition：过渡时间   过度样式   过度形式   延迟时间   ，[过渡时间   过度样式   过度形式   延迟时间  ]</p>
-<h2 id="5-变形"><a href="#5-变形" class="headerlink" title="5.变形"></a>5.变形</h2><p>​    transform</p>
-<h3 id="角度问题"><a href="#角度问题" class="headerlink" title="角度问题"></a>角度问题</h3><p>​        角度转弧度：deg * Math.PI/180</p>
-<p>​        已知角度垂直临边：Math.tan(deg * Math.PI/180) *lenght</p>
-<p>​        多边形内角和：（n－2）* 180</p>
+<h2 id="4-过度"><a href="#4-过度" class="headerlink" title="4.过度"></a>4.过度</h2><p>transition-property：过度的名称（width，height，font….）</p>
+<p>transition-duration：过度时间（必须带单位&lt;s,ms&gt;）</p>
+<p>transition-timing-function：过度的方式（默认ease&lt;慢-快-慢&gt;；ease-in,ease-out,ease-in-out,cubic-bezier(n,n,n,n)）</p>
+<p>transition-delay：延迟</p>
+<p>transition：过渡时间   过度样式   过度形式   延迟时间   ，[过渡时间   过度样式   过度形式   延迟时间  ]</p>
+<h2 id="5-变形"><a href="#5-变形" class="headerlink" title="5.变形"></a>5.变形</h2><p>transform</p>
+<h3 id="角度问题"><a href="#角度问题" class="headerlink" title="角度问题"></a>角度问题</h3><p>角度转弧度：deg * Math.PI/180</p>
+<p>已知角度垂直临边：Math.tan(deg * Math.PI/180) *lenght</p>
+<p>多边形内角和：（n－2）* 180</p>
 <h2 id="6-3d"><a href="#6-3d" class="headerlink" title="6.3d"></a>6.3d</h2>
       
     </div>
